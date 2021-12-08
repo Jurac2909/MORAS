@@ -1,0 +1,15 @@
+CHIP MultHalf {
+	IN a[16], b[16];
+	OUT out[16];
+	PARTS:
+	IEEEex(in = a, out = ax);
+	IEEEex(in = b, out = bx);
+	Add16(a = ax, b = bx, out[1..14] = ex, out[15] = trash);
+	Add16(a[1..14] = ex, a[15] = false, b[0..9] = false, b[10] = true, b[11..13] = false, b[14] = true, b[15] = false,
+	out[10..14] = out[10..14], out[15] = trash1, out[0..9] = trash2 );
+	IEEEM(in = a, out = am);
+	IEEEM(in = b, out = bm);
+	Mult(a = am, b = bm, out[6..15] = out[0..9], out[0..5] = trash3);
+	Xor(a = a[15], b = b[15], out = out[15]);
+
+}

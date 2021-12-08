@@ -1,0 +1,6 @@
+CHIP IEEEex {
+	IN in[16];
+	OUT out[16];
+	PARTS:
+	Or16(a[10..14] = in[10..14], a[15] = false, a[0..9] = false,b = false, out = out);
+}
