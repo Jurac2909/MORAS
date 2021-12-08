@@ -1,0 +1,8 @@
+CHIP TwosCompl {
+	IN in[16];
+	OUT out[16];
+	PARTS:
+	Neg16(in = in, out = negin);
+	Inc16(in = negin, out = out);
+
+}
