@@ -1,7 +1,6 @@
 CHIP zad1a {
-
 	IN  x, y;
-    OUT out;
+	OUT out;
 
 	PARTS:
 	And(a = x, b = y, out = and);
