@@ -23,9 +23,15 @@ def _parse_line(self, line, p, o):
         if len(x) != 0:
             self._flag = False
             self._line = o
-
-
             self._errm = "Undefined operation \"" + ' '.join(x) + "\"."
+            return ""
+     if line[0] == "(":
+        x = line.split(")")
+        x.pop(0)
+        if len(x) != 0 and x[0] != "\n":
+            self._flag = False
+            self._line = o
+            self._errm = "Undefined label \"" + ' '.join(x) + "\"."
             return ""
     while i < len(line) - 1:
         p = line[i] + line[i + 1]
