@@ -13,6 +13,13 @@ M=1
 D = M
 @i
 M = D
+@SKIP1
+D-1;JGT
+@2
+M=1
+@END
+0;JMP
+(SKIP1)
 @2
 M = D
 @j
