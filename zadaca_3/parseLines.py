@@ -25,7 +25,7 @@ def _parse_line(self, line, p, o):
             self._line = o
             self._errm = "Undefined operation \"" + ' '.join(x) + "\"."
             return ""
-    if line[0] == "(":
+        if line[0] == "(":
         x = line.split(")")
         x.pop(0)
         if len(x) != 0 and x[0] != "\n":
