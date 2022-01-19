@@ -1,0 +1,43 @@
+sp
+call main.Main 0
+ep
+
+function Main 0
+//zadatak 2
+    //a
+    push constant 5
+    push constant 2
+    push constant 8
+
+    call mid.Mid 3
+    pop static 0
+
+	//b
+	push constant 10
+	call fibonacci.Fibonacci 1
+	pop static 1
+
+	//c
+	push constant 27
+	push constant 5
+	call div.Div 2
+	pop static 2
+
+	push constant 27
+	push constant 5
+	call mod.Mod 2
+	pop static 3
+
+//zadatak 3
+    //Postaviti THAT na 2048, od 2048 --- 2048 + n upisati sortiranu listu
+
+    push pointer 1
+    push constant 6
+    push constant 17
+    call BS.search 3
+    pop static 4
+	return
+
+
+
+

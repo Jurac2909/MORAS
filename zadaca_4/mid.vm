@@ -1,0 +1,44 @@
+function Mid 3
+    push argument 0
+    push argument 1
+
+    gt
+    if-goto B
+    //treeA
+    push argument 1
+    push argument 2
+
+    gt
+    if-goto A_b>c
+
+        goto return_b
+
+    label A_b>c
+
+    push argument 0
+    push argument 2
+    gt
+    if-goto return_a
+    goto return_c
+
+    label B
+    push argument 1
+    push argument 2
+    gt
+    if-goto return_b
+
+    push argument 0
+    push argument 2
+    gt
+    if-goto return_c
+    goto return_a
+
+    label return_a
+    push argument 0
+    return
+    label return_b
+    push argument 1
+    return
+    label return_c
+    push argument 2
+    return

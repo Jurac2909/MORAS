@@ -1,0 +1,21 @@
+function Mod 2
+//Mod(int a, int b)
+    //int x = b
+    push argument 1
+    pop local 0
+
+    label LOOP
+    //27<5
+        push argument 0
+        push local 0
+        lt
+        if-goto END
+        //22, 5 -> 17
+        push argument 0
+        push local 0
+        sub
+        pop argument 0
+        goto LOOP
+        label END
+        push argument 0
+        return
