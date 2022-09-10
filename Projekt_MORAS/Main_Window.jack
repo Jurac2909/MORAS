@@ -1,0 +1,211 @@
+
+class Main_Window {
+  static int x0, y0, x1, y1; 
+  static int block_size, block_space;
+  static int win_x0, win_y0, win_x1, win_y1;
+
+  function void init() {
+    var int i, j;
+    var int i0, j0, i1, j1;
+
+    let block_size = 12;
+    let block_space = 3;
+
+    let win_x0 = 256 + 4;
+    let win_y0 = 10;
+    let win_x1 = win_x0 + (12*10);
+    let win_y1 = win_y0 + (12*20);
+
+
+    let x0 = win_x0 - block_size;
+    let y0 = win_y0 - (2 * block_size);
+    do Main_Window.drawFrame();
+
+    do Output.moveCursor(10, 12);
+    do Output.printString("TETRIS");
+
+
+    do Output.moveCursor(21, 2);
+    do Output.printString("Press ESC to end game.");
+
+    return;
+  }
+
+  function void drawFrame() {
+    do Screen.drawRectangle(win_x0 - 4, win_y0 - 4, win_x1 + 4 - block_space, win_y1 + 4 - block_space);
+    do Main_Window.clear();
+
+    return;
+  }
+
+  function void clear() {
+    do Screen.setColor(false);
+    do Screen.drawRectangle(win_x0 - 2, win_y0 - 2, win_x1 + 2 - block_space, win_y1 + 2 - block_space);
+    do Screen.setColor(true);
+
+    return;
+  }
+
+  function void drawCell(int i, int j) {
+    var int x, y;
+    let x = x0 + (i * block_size);
+    let y = y0 + (j * block_size);
+
+    do Screen.drawRectangle(x, y, x + block_size - block_space, y + block_size - block_space);
+    return;
+  }
+
+  function void eraseCell(int i, int j) {
+    var int x, y;
+    let x = x0 + (i * block_size);
+    let y = y0 + (j * block_size);
+
+    do Screen.setColor(false);
+    do Screen.drawRectangle(x, y, x + block_size - block_space, y + block_size - block_space);
+    do Screen.setColor(true);
+    return;
+  }
+
+  function int waitStart() {
+    var int i;
+    var int key;
+
+    do Screen.drawRectangle(304 - 18, 111 - 12, 304 + 40 + 18 - 2, 111 + 22 + 11);
+    do Screen.setColor(false);
+    do Screen.drawRectangle(304 - 16, 111 - 10, 304 + 40 + 16 - 2, 111 + 22 + 9);
+    do Output.moveCursor(10, 38); 
+    do Output.printString("PRESS");
+    do Output.moveCursor(11, 38); 
+    do Output.printString("ENTER");
+
+    let i = 1;
+    let key = 0;
+    while (~(key = 128)) { 
+      let key = Keyboard.keyPressed();
+
+      if(i = 16383) {
+        let i = 1;
+      } else {
+        let i = i + 1;
+      }
+    }
+
+    while (~(key = 0)) {
+      let key = Keyboard.keyPressed();
+
+      if(i = 16383) {
+        let i = 1;
+      } else {
+        let i = i + 1;
+      }
+    }
+
+    do Main_Window.clear();
+    return i;
+  }
+  
+  function int waitChooseDiff(){
+	var int i;
+    var int key;
+	var int diff;
+    do Output.moveCursor(8, 35); 
+    do Output.printString("Difficulty:");
+	do Output.moveCursor(10, 38);
+	do Output.printString("EASY");
+	do Output.moveCursor(12, 38);
+	do Output.printString("HARD");
+	do Output.moveCursor(14, 38);
+	do Output.printString("PAIN");
+	do Screen.drawRectangle(290, 110, 300, 120);
+	//do Screen.drawRectangle(290, 110, 300, 120);
+	//do Screen.drawRectangle(290, 132, 300, 142);
+	//do Screen.drawRectangle(290, 154, 300, 164);
+	let diff = 1;
+	while (~(key = 128)) { 
+		let key = Keyboard.keyPressed();
+		
+		
+		if (key = 131 & ~(diff = 1)){
+			if (diff = 5){
+				while(~(key = 0)){
+						let key = Keyboard.keyPressed();
+					do Screen.setColor(false);
+					do Screen.drawRectangle(290, 132, 300, 142);
+					do Screen.setColor(true);
+					do Screen.drawRectangle(290, 110, 300, 120);
+					let diff = 1;
+					}
+			}
+			else{
+				while(~(key = 0)){
+						let key = Keyboard.keyPressed();
+					do Screen.setColor(false);
+					do Screen.drawRectangle(290, 154, 300, 164);
+					do Screen.setColor(true);
+					do Screen.drawRectangle(290, 132, 300, 142);
+					let diff = 5;
+					}
+			}
+			
+		}
+		if (key = 133 & ~(diff = 10)){
+			if (diff = 5){
+				while(~(key = 0)){
+					let key = Keyboard.keyPressed();
+					do Screen.setColor(false);
+					do Screen.drawRectangle(290, 132, 300, 142);
+					do Screen.setColor(true);
+					do Screen.drawRectangle(290, 154, 300, 164);
+					let diff = 10;
+				}
+			}
+			else{
+				while(~(key = 0)){
+					let key = Keyboard.keyPressed();
+					do Screen.setColor(false);
+					do Screen.drawRectangle(290, 110, 300, 120);
+					do Screen.setColor(true);
+					do Screen.drawRectangle(290, 132, 300, 142);
+					let diff = 5;
+					}
+			}
+			
+		}
+      let key = Keyboard.keyPressed();
+		
+      if(i = 16383) {
+        let i = 1;
+      } else {
+        let i = i + 1;
+		
+		
+      }
+    }
+
+    while (~(key = 0)) {
+      let key = Keyboard.keyPressed();
+
+      if(i = 16383) {
+        let i = 1;
+      } else {
+        let i = i + 1;
+      }
+    }
+
+    do Main_Window.clear();
+    return diff;
+  
+  }
+  
+  function void gameOver() {
+    do Screen.drawRectangle(304 - 18, 111 - 12, 304 + 32 + 18 - 2, 111 + 22 + 11);
+    do Screen.setColor(false);
+    do Screen.drawRectangle(304 - 16, 111 - 10, 304 + 32 + 16 - 2, 111 + 22 + 9);
+    do Output.moveCursor(10, 38); 
+    do Output.printString("GAME");
+    do Output.moveCursor(11, 38); 
+    do Output.printString("OVER");
+
+    return;
+  }
+}

@@ -1,0 +1,142 @@
+
+class Tetris_Game {
+  static Tetris_Game instance;
+  static World world;
+  static int level;
+  field boolean exit;
+
+  constructor Tetris_Game new() {
+    var int v;
+    do Screen.clearScreen();
+
+    do Main_Window.init();
+    do Score_Board.init();
+    do Next_Window.init();
+	
+    do World.newInstance();
+    let world = World.getInstance();
+    do Block.setWorld(world);
+	
+    let exit = false;
+
+    let v = Main_Window.waitStart(); 
+	
+	let level = Main_Window.waitChooseDiff();
+	
+    do Rand.init(v);
+
+    return this;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
+
+  function void newInstance() {
+    let instance = Tetris_Game.new();
+    return;
+  }
+
+  function Tetris_Game getInstance() {
+    return instance;
+  }
+
+  method void run() {
+    var Player player;
+    var Block block, nextBlock;
+    var char key, last_key;
+    var boolean interval;
+    var int interval_timer;
+    var int i;
+
+    let player = Player.new();
+    let interval = false;
+    let last_key = 0;
+	
+	do player.startLevel(level);
+	do World.changeLevel(level);
+    do Block.setPlayer(player);
+    do Clock.setLandingTime(2000/level); 
+    do Clock.setUnitTime(1000/level); 
+	
+    let nextBlock = Block.spawn(Rand.take());
+
+    while (~exit) {
+      if (block = 0) {
+        let block = nextBlock;
+        let i = Rand.take();
+        let nextBlock = Block.spawn(i);
+		
+        do nextBlock.drawNext();
+
+        if (block.isGameOver()) {
+          let exit = true;
+        }
+      }
+      let key = Keyboard.keyPressed();
+
+      if (key = 140) {   
+        let exit = true;
+      }
+
+      if (~exit) {
+
+        if (~(key = 0)) {
+          if (key = last_key) {
+            if (interval) {
+              let interval_timer = interval_timer - 1;
+			  
+              if (interval_timer < 0) {
+                let interval = false;
+              }
+            } else {
+              let interval = true;
+              let interval_timer = 100; 
+            }
+          } else {
+            let interval = false;
+          }
+        } else {
+          let interval = false;
+        }
+
+        if (~interval) {
+          if (key = 130) {   // lijevo
+            if(block > 0) {
+              do block.moveLeft();
+            }
+          }
+          if (key = 132) {   // desno
+            if(block > 0) {
+              do block.moveRight();
+            }
+          }
+          if (key = 133) {   // strelica dolje
+            if(block > 0) {
+              let block = block.softDrop();
+            }
+          }
+          if (key = 131) {   // strelica gore
+            if(block > 0) {
+              do block.rotateRight();
+            }
+          }
+        }
+
+        if (block > 0) {
+          let block = block.makeFall();
+        }
+      }
+
+      let last_key = key;
+      let key = 0;
+    }
+
+    if (exit) {
+      do Main_Window.gameOver();
+    }
+
+    return;
+  }
+}

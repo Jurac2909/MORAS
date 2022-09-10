@@ -1,0 +1,85 @@
+
+class Player {
+
+  field int score;
+  field int next_score;
+  field int level;
+
+  constructor Player new() {
+    let score = 0;
+    let next_score = 2000;
+    let level = 0;
+
+    return this;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+	return;
+  }
+  method void startLevel(int lvl) {
+    
+    let level = lvl;
+    do Score_Board.printLevel(level);
+    return;
+  }
+  
+  method void updateLevel() {
+    if (score < next_score) {
+      return;
+    }
+
+    while (~(score < next_score)) {
+      let next_score = next_score + 2000;
+      let level = level + 1;
+	  do World.changeLevel(level);
+    }
+    do Score_Board.printLevel(level);
+    return;
+  }
+
+  method int getLevel() {
+    return level;
+  }
+
+  method void addScoreForLineClear(int line_count) {
+    var int base;
+
+    if (~(line_count > 0)) {
+      return;
+    }
+
+      if (line_count = 1) {
+        let base = 100;
+      }
+      if (line_count = 2) {
+        let base = 300;
+      }
+      if (line_count = 3) {
+        let base = 500;
+      }
+      if (line_count = 4) {
+        let base = 800;
+        }
+     
+
+    do addScore(base * level);
+
+    do Score_Board.printLineClear(line_count);
+
+    return;
+  }
+	
+  method void addScoreForSoftDrop() {
+    do addScore(1);
+    return;
+  }
+
+
+  method void addScore(int diff) {
+    let score = score + diff;
+    do Score_Board.printScore(score);
+    do updateLevel();
+    return;
+  }
+}

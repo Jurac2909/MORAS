@@ -1,0 +1,65 @@
+
+class Score_Board {
+
+  function void init() {
+	do Output.moveCursor(1, 49);
+    do Output.printString("Next:");
+
+    do Output.moveCursor(17, 49);
+    do Output.printString("Score:");
+	
+    do Output.moveCursor(19, 49);
+    do Output.printString("Level:");
+	
+    
+
+    do Score_Board.printScore(0);
+    do Score_Board.printLevel(0);
+    return;
+  }
+
+  function void printScore(int score) {
+    do Output.moveCursor(17, 56);
+    do Output.printString("     ");
+    do Output.moveCursor(17, 56);
+    do Output.printInt(score);
+    return;
+  }
+
+  function void printLevel(int level) {
+    do Output.moveCursor(19, 56);
+    do Output.printString("     ");
+    do Output.moveCursor(19, 56);
+    do Output.printInt(level);
+    return;
+  }
+
+  function void printLineClear(int line_count) {
+
+    do Score_Board.clear();
+    do Output.moveCursor(21, 49);
+	
+    if (line_count = 1) {
+      do Output.printString("Single");
+    }
+    if (line_count = 2) {
+      do Output.printString("Double");
+    }
+    if (line_count = 3) {
+      do Output.printString("Triple");
+    }
+    if (line_count = 4) {
+      do Output.printString("TETRIS");
+    }
+
+    return;
+  }
+
+  function void clear() {
+    do Screen.setColor(false);
+    do Screen.drawRectangle(392, 220, 511, 242);
+    do Screen.setColor(true);
+
+    return;
+  }
+}
